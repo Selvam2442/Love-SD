@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Dencii ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  background-color: #ffe6e9;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* --- ANIMATED BACKGROUND --- */
+.bg-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Floating Hearts Background */
+.floating-heart {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.6);
+  animation: float 6s linear infinite;
+  z-index: -1;
+}
+
+@keyframes float {
+  0% { transform: translateY(110vh) scale(0); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+}
+
+/* --- LOGIN SCREEN --- */
+#loginPage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  transition: transform 0.8s ease-in-out, opacity 0.8s;
+}
+
+#loginPage.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  text-align: center;
+  max-width: 90%;
+  width: 400px;
+  border: 2px solid #ff4081;
+}
+
+.login-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
+  color: #d81b60;
+  margin-bottom: 20px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 15px;
+  margin: 15px 0;
+  border: 2px solid #ffc1e3;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  outline: none;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.login-input:focus {
+  border-color: #d81b60;
+  box-shadow: 0 0 10px rgba(216, 27, 96, 0.2);
+}
+
+.login-btn {
+  background: linear-gradient(45deg, #ff4081, #f50057);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin-top: 10px;
+}
+
+.login-btn:hover {
+  transform: scale(1.05);
+}
+
+.error-msg {
+  color: #f44336;
+  margin-top: 10px;
+  height: 20px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* --- MAIN EXPERIENCE (SLIDER) --- */
+#mainExperience {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease 0.5s;
+  pointer-events: none;
+}
+
+#mainExperience.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.slider-container {
+  display: flex;
+  width: 400vw; /* 4 Slides now */
+  height: 100vh;
+  transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.slide {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+  border: 3px solid #ffebEE;
+}
+
+/* --- PHOTO GALLERY STYLES --- */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 10px;
+  /* Custom scrollbar for cuteness */
+  scrollbar-width: thin;
+  scrollbar-color: #ff4081 #ffebEE;
+}
+
+.photo-frame {
+  background: white;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.photo-frame:hover {
+  transform: scale(1.05) rotate(2deg);
+  z-index: 10;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+/* This makes images cover the area nicely regardless of ratio */
+.photo-frame img {
+  width: 100%;
+  height: 120px; /* Fixed height for grid uniformity */
+  object-fit: cover;
+  border-radius: 6px;
+  display: block;
+}
+
+/* Specific style for clicking a photo to see it big (optional simple effect) */
+.photo-frame:active {
+  transform: scale(1.5);
+  z-index: 100;
+}
+
+h1 {
+  font-family: 'Dancing Script', cursive;
+  color: #c2185b;
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #555;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.nav-btn {
+  background: #ff4081;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+  transition: all 0.3s;
+}
+
+.nav-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 64, 129, 0.6);
+}
+
+/* --- PROPOSAL BUTTONS --- */
+.proposal-btns {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.yes-btn {
+  background: #00c853;
+  font-size: 1.2rem;
+  padding: 15px 40px;
+  animation: pulse 1.5s infinite;
+}
+
+.no-btn {
+  background: #ef5350;
+  position: relative;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.4); transform: scale(1); }
+  70% { box-shadow: 0 0 0 15px rgba(0, 200, 83, 0); transform: scale(1.05); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); transform: scale(1); }
+}
+
+.final-msg {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d81b60;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.final-msg.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- MOBILE ADAPTATION --- */
+@media (max-width: 768px) {
+  h1 { font-size: 2.2rem; }
+  .card { padding: 25px; margin: 10px; }
+  .photo-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- Background Music (Hidden) -->
+<audio id="bgMusic" loop>
+  <!-- Replace with your own URL if needed -->
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="bg-container"></div>
+
+<!-- 1. LOGIN SCREEN -->
+<div id="loginPage">
+  <div class="login-box">
+    <div class="login-title">One Question ❤️</div>
+    <p style="margin-bottom: 10px;">En pondati name enna ? 😁</p>
+    <input type="text" id="passwordInput" class="login-input" placeholder="Type answer here..." autocomplete="off">
+    <div id="errorMsg" class="error-msg">Thappu! Try again 😜</div>
+    <button class="login-btn" onclick="checkPassword()">Unlock My Heart 🔓</button>
+  </div>
+</div>
+
+<!-- 2. MAIN EXPERIENCE SLIDER -->
+<div id="mainExperience">
+  <div class="slider-container" id="slider">
+
+    <!-- Slide 1: Welcome -->
+    <div class="slide">
+      <div class="card">
+        <h1>Hi Baby! 💝</h1>
+        <p>Ethanaaio naal coding potruken naan 🥲<br>
+        But every line of code reminds me of you... ❤️</p>
+        <p>You are my favorite notification.</p>
+        <button class="nav-btn" onclick="nextSlide(1)">Continue 💕</button>
+      </div>
+    </div>
+
+    <!-- Slide 2: Photo Gallery -->
+    <div class="slide">
+      <div class="card">
+        <h1>Our Memories 📸</h1>
+        <p>Every moment with you is magic.</p>
+        
+        <div class="photo-grid">
+          <!-- PASTE YOUR IMAGE LINKS HERE -->
+          <!-- You can copy the <div class="photo-frame"> block as many times as you want -->
+          
+          <div class="photo-frame">
+            <img src="img close.jpeg" alt="Couple 1">
+          </div>
+          <div class="photo-frame">
+            <img src="img flower.jpeg" alt="Couple 2">
+          </div>
+           <div class="photo-frame">
+            <img src="img 1.jpeg" alt="Couple 3">
+          </div>
+          <div class="photo-frame">
+            <img src="img 2.jpeg" alt="Couple 4">
+          </div>
+           <div class="photo-frame">
+            <img src="img kiss.jpeg" alt="Couple 5">
+          </div>
+           <div class="photo-frame">
+            <img src="img hand.jpeg" alt="Couple 5">
+          </div>
+          
+          <!-- Add your photos above this line -->
+        </div>
+
+        <button class="nav-btn" onclick="nextSlide(2)">More Love ✨</button>
+      </div>
+    </div>
+
+    <!-- Slide 3: Dedication -->
+    <div class="slide">
+      <div class="card">
+        <h1>🌹 For My Dencii 🌹</h1>
+        <p>
+          Indha page unakaga Naan code pannen.<br>
+          Enoda denciii kutty maa kuu pannen 🥰
+        </p>
+        <p>
+          You deserve all the happiness and love in the entire universe.
+        </p>
+        <button class="nav-btn" onclick="nextSlide(3)">One Last Thing... 🥺</button>
+      </div>
+    </div>
+
+    <!-- Slide 4: Proposal -->
+    <div class="slide">
+      <div class="card" id="proposalCard">
+        <h1 id="proposalTitle">Will You Be Mine? 💍</h1>
+        <p>
+          From the moment you came into my life, everything became beautiful. 
+          Innaiku Valentines Day... ❤️<br><br>
+          <strong>Will you accept my love, today and always?</strong>
+        </p>
+        
+        <div class="proposal-btns">
+          <button class="nav-btn yes-btn" onclick="acceptLove()">YES, I Will! 💖</button>
+          <button class="nav-btn no-btn" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">No 😜</button>
+        </div>
+
+        <div class="final-msg" id="resultText"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+  // --- CONFIGURATION ---
+  const CORRECT_PASSWORD = "dencilla"; // Case insensitive
+  
+  // --- ELEMENTS ---
+  const loginPage = document.getElementById('loginPage');
+  const mainExperience = document.getElementById('mainExperience');
+  const slider = document.getElementById('slider');
+  const passwordInput = document.getElementById('passwordInput');
+  const errorMsg = document.getElementById('errorMsg');
+  const bgMusic = document.getElementById('bgMusic');
+  
+  // --- FLOATING HEARTS GENERATOR ---
+  function createFloatingHearts() {
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.innerHTML = '❤️';
+      heart.classList.add('floating-heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+      heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      document.body.appendChild(heart);
+      
+      setTimeout(() => heart.remove(), 6000);
+    }, 300);
+  }
+  
+  // --- LOGIN LOGIC ---
+  function checkPassword() {
+    const val = passwordInput.value.trim().toLowerCase();
+    
+    if (val === CORRECT_PASSWORD) {
+      // Success
+      errorMsg.style.opacity = '0';
+      startExperience();
+    } else {
+      // Fail
+      errorMsg.style.opacity = '1';
+      passwordInput.classList.add('shake');
+      setTimeout(() => passwordInput.classList.remove('shake'), 500);
+    }
+  }
+
+  // Allow "Enter" key to submit
+  passwordInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') checkPassword();
+  });
+
+  function startExperience() {
+    // Hide login, show main
+    loginPage.classList.add('hidden');
+    mainExperience.classList.add('active');
+    
+    // Attempt to play music
+    bgMusic.volume = 0.5;
+    bgMusic.play().catch(e => console.log("Audio autoplay blocked by browser policy"));
+    
+    createFloatingHearts();
+  }
+
+  // --- SLIDER LOGIC ---
+  function nextSlide(index) {
+    slider.style.transform = `translateX(-${index * 100}vw)`;
+  }
+
+  // --- NO BUTTON LOGIC (RUN AWAY) ---
+  function moveButton() {
+    const btn = document.getElementById('noBtn');
+    const x = Math.random() * (window.innerWidth - btn.offsetWidth - 100);
+    const y = Math.random() * (window.innerHeight - btn.offsetHeight - 100);
+    
+    btn.style.position = 'fixed';
+    btn.style.left = `${x}px`;
+    btn.style.top = `${y}px`;
+  }
+
+  // --- YES BUTTON LOGIC ---
+  function acceptLove() {
+    const resultText = document.getElementById('resultText');
+    const noBtn = document.getElementById('noBtn');
+    const title = document.getElementById('proposalTitle');
+    
+    // Hide No button
+    noBtn.style.display = 'none';
+    
+    // Change Title
+    title.innerText = "She Said YES! 🎉";
+    
+    // Show Message
+    resultText.innerHTML = "I love you forever Dencii ❤️<br>— Your Selvam 💍";
+    resultText.classList.add('show');
+    
+    // Trigger Confetti
+    triggerConfetti();
+    
+    // More hearts
+    setInterval(() => {
+        confetti({
+          particleCount: 50,
+          spread: 60,
+          origin: { y: 0.7 },
+          colors: ['#ff0000', '#ff4081', '#ffffff']
+        });
+    }, 2000);
+  }
+
+  function triggerConfetti() {
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+      confetti({
+        particleCount: 7,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#ff0000', '#ffa500']
+      });
+      confetti({
+        particleCount: 7,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#ff0000', '#ffa500']
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    }());
+  }
+</script>
+
+</body>
+</html>
